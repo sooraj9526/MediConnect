@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Dashboard | MediConnect</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f8fb;
+            color: #173b63;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
+
+            background: #0f4c75;
+
+            color: white;
+
+            padding: 20px 50px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .header h1 {
+            margin: 0;
+        }
+
+
+        .logout {
+
+            background: white;
+
+            color: #0f4c75;
+
+            padding: 10px 18px;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+        }
+
+
+        .logout:hover {
+            background: #e8f3fa;
+        }
+
+
+        /* =====================================================
+           MAIN CONTAINER
+        ===================================================== */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 1200px;
+
+            margin: 40px auto;
+        }
+
+
+        /* =====================================================
+           WELCOME
+        ===================================================== */
+
+        .welcome {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            margin-bottom: 30px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .welcome h2 {
+
+            margin-top: 0;
+
+            color: #0f4c75;
+
+            font-size: 30px;
+        }
+
+
+        .welcome p {
+
+            font-size: 18px;
+
+            color: #444;
+        }
+
+
+        /* =====================================================
+           CARDS
+        ===================================================== */
+
+        .cards {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+
+        .card {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+
+            transition: 0.2s;
+        }
+
+
+        .card:hover {
+
+            transform: translateY(-4px);
+
+        }
+
+
+        .card h3 {
+
+            color: #0f4c75;
+
+            margin-bottom: 15px;
+
+            font-size: 23px;
+        }
+
+
+        .card p {
+
+            color: #555;
+
+            line-height: 1.6;
+
+            min-height: 75px;
+        }
+
+
+        /* =====================================================
+           BUTTON
+        ===================================================== */
+
+        .button {
+
+            display: inline-block;
+
+            margin-top: 15px;
+
+            padding: 12px 22px;
+
+            background: #0f4c75;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+
+        }
+
+
+        .button:hover {
+
+            background: #083b5c;
+
+        }
+
+
+        /* =====================================================
+           PROFILE
+        ===================================================== */
+
+        .profile {
+
+            margin-top: 30px;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .profile h2 {
+
+            color: #0f4c75;
+
+            margin-top: 0;
+        }
+
+
+        .profile p {
+
+            margin: 10px 0;
+
+            color: #444;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .cards {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .header {
+
+                padding: 20px;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 22px;
+
+            }
+
+
+            .container {
+
+                width: 94%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
+
+    <div class="header">
+
+        <h1>
+            MediConnect
+        </h1>
+
+
+        <a
+            href="{% url 'logout' %}"
+            class="logout"
+        >
+            Logout
+        </a>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <div class="container">
+
+
+        <!-- =================================================
+             WELCOME
+        ================================================= -->
+
+        <div class="welcome">
+
+            <h2>
+                Welcome, {{ request.user.username }} 🧑
+            </h2>
+
+            <p>
+                Welcome to your MediConnect patient dashboard.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             DASHBOARD CARDS
+        ================================================= -->
+
+        <div class="cards">
+
+
+            <!-- =================================================
+                 MY PROFILE
+            ================================================= -->
+
+            <div class="card">
+
+                <h3>
+                    👤 My Profile
+                </h3>
+
+                <p>
+                    View your personal information
+                    and profile details.
+                </p>
+
+
+                <a
+                    href="{% url 'patient_profile' %}"
+                    class="button"
+                >
+                    View Profile
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 EDIT PROFILE
+            ================================================= -->
+
+            <div class="card">
+
+                <h3>
+                    ✏️ Edit Profile
+                </h3>
+
+                <p>
+                    Update your personal information,
+                    phone number and address.
+                </p>
+
+
+                <a
+                    href="{% url 'edit_patient_profile' %}"
+                    class="button"
+                >
+                    Edit Profile
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 BOOK APPOINTMENT
+            ================================================= -->
+
+            <div class="card">
+
+                <h3>
+                    📅 Book Appointment
+                </h3>
+
+                <p>
+                    Book an appointment with
+                    a doctor.
+                </p>
+
+
+                <!-- CORRECT APPOINTMENT URL -->
+
+                <a
+                    href="{% url 'appointments:book' %}"
+                    class="button"
+                >
+                    📅 Book Appointment
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 MY APPOINTMENTS
+            ================================================= -->
+
+            <div class="card">
+
+                <h3>
+                    📋 My Appointments
+                </h3>
+
+                <p>
+                    View your appointments,
+                    doctors, dates and appointment status.
+                </p>
+
+
+                <a
+                    href="{% url 'appointments:my_appointments' %}"
+                    class="button"
+                >
+                    View Appointments
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 LAB REPORTS
+            ================================================= -->
+
+            <div class="card">
+
+                <h3>
+                    🧪 Lab Reports
+                </h3>
+
+                <p>
+                    View your laboratory test
+                    reports and results.
+                </p>
+
+
+                <a
+                    href="{% url 'appointments:patient_lab_reports' %}"
+                    class="button"
+                >
+                    View Lab Reports
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 PRESCRIPTIONS
+            ================================================= -->
+
+            <div class="card">
+
+                <h3>
+                    💊 Prescriptions
+                </h3>
+
+                <p>
+                    View prescriptions, medicines,
+                    dosage and instructions from
+                    your doctors.
+                </p>
+
+
+                <a
+                    href="{% url 'appointments:my_prescriptions' %}"
+                    class="button"
+                >
+                    View Prescriptions
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             PATIENT PROFILE
+        ================================================= -->
+
+        <div class="profile">
+
+            <h2>
+                Patient Information
+            </h2>
+
+
+            <p>
+
+                <strong>
+                    Username:
+                </strong>
+
+                {{ request.user.username }}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Email:
+                </strong>
+
+                {{ request.user.email }}
+
+            </p>
+
+
+            {% if profile %}
+
+
+                <p>
+
+                    <strong>
+                        Phone:
+                    </strong>
+
+                    {{ profile.phone }}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Address:
+                    </strong>
+
+                    {{ profile.address }}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Role:
+                    </strong>
+
+                    {{ profile.role }}
+
+                </p>
+
+
+            {% endif %}
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

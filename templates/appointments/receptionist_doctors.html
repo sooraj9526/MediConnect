@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MediConnect | Doctors</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8fb;
+            color: #17324d;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 70px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #063970,
+                    #087f8c
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 40px;
+
+            color: white;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #62e6e6;
+        }
+
+        .logout {
+            color: white;
+
+            text-decoration: none;
+
+            border: 1px solid rgba(255,255,255,0.5);
+
+            padding: 9px 16px;
+
+            border-radius: 8px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 40px 25px;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 34px;
+
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #718096;
+        }
+
+        /* ================= SEARCH ================= */
+
+        .search-box {
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.06);
+
+            margin-bottom: 30px;
+        }
+
+        .search-form {
+            display: flex;
+
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+
+            padding: 13px 15px;
+
+            border: 1px solid #d6dee8;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #087f8c;
+        }
+
+        .search-button {
+            padding: 13px 22px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #063970;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background: #087f8c;
+        }
+
+        .clear-button {
+            display: flex;
+
+            align-items: center;
+
+            text-decoration: none;
+
+            padding: 13px 18px;
+
+            border-radius: 8px;
+
+            background: #edf2f7;
+
+            color: #17324d;
+
+            font-weight: bold;
+        }
+
+        /* ================= RESULT ================= */
+
+        .result-text {
+            margin-bottom: 20px;
+
+            color: #718096;
+        }
+
+        /* ================= DOCTOR GRID ================= */
+
+        .doctor-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .doctor-card {
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.06);
+
+            transition: 0.2s;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .doctor-icon {
+            width: 60px;
+
+            height: 60px;
+
+            border-radius: 50%;
+
+            background: #e4f7f7;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 30px;
+
+            margin-bottom: 18px;
+        }
+
+        .doctor-card h2 {
+            color: #063970;
+
+            margin-bottom: 15px;
+
+            font-size: 22px;
+        }
+
+        .doctor-info {
+            margin-bottom: 9px;
+
+            color: #52677a;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+        .doctor-info strong {
+            color: #17324d;
+        }
+
+        .role {
+            display: inline-block;
+
+            margin-top: 10px;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            background: #e4f7f7;
+
+            color: #087f8c;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty {
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 16px;
+
+            text-align: center;
+
+            color: #718096;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        /* ================= BACK ================= */
+
+        .back-button {
+            display: inline-block;
+
+            margin-top: 30px;
+
+            text-decoration: none;
+
+            background: #063970;
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 900px) {
+
+            .doctor-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media(max-width: 600px) {
+
+            .doctor-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+
+            .search-button,
+            .clear-button {
+                justify-content: center;
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        Medi<span>Connect</span>
+    </div>
+
+    <a
+        href="{% url 'logout' %}"
+        class="logout"
+    >
+        🚪 Logout
+    </a>
+
+</nav>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+
+    <div class="page-header">
+
+        <h1>
+            👨‍⚕️ Doctor List
+        </h1>
+
+        <p>
+            View and search all registered doctors.
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= SEARCH ================= -->
+
+    <div class="search-box">
+
+        <form
+            method="GET"
+            class="search-form"
+        >
+
+            <input
+                type="text"
+                name="q"
+                value="{{ search }}"
+                class="search-input"
+                placeholder="Search doctor by name, email, phone or address..."
+            >
+
+            <button
+                type="submit"
+                class="search-button"
+            >
+
+                🔎 Search
+
+            </button>
+
+
+            {% if search %}
+
+                <a
+                    href="{% url 'appointments:receptionist_doctors' %}"
+                    class="clear-button"
+                >
+
+                    ✕ Clear
+
+                </a>
+
+            {% endif %}
+
+        </form>
+
+    </div>
+
+
+
+    <!-- ================= RESULT COUNT ================= -->
+
+    {% if search %}
+
+        <div class="result-text">
+
+            Search results for:
+
+            <strong>
+                "{{ search }}"
+            </strong>
+
+        </div>
+
+    {% endif %}
+
+
+
+    <!-- ================= DOCTORS ================= -->
+
+    {% if doctors %}
+
+        <div class="doctor-grid">
+
+            {% for doctor in doctors %}
+
+                <div class="doctor-card">
+
+
+                    <div class="doctor-icon">
+                        👨‍⚕️
+                    </div>
+
+
+                    <h2>
+                        Dr. {{ doctor.username }}
+                    </h2>
+
+
+                    <div class="doctor-info">
+
+                        <strong>Email:</strong>
+
+                        {{ doctor.email|default:"Not provided" }}
+
+                    </div>
+
+
+                    <div class="doctor-info">
+
+                        <strong>Phone:</strong>
+
+                        {{ doctor.userprofile.phone|default:"Not provided" }}
+
+                    </div>
+
+
+                    <div class="doctor-info">
+
+                        <strong>Address:</strong>
+
+                        {{ doctor.userprofile.address|default:"Not provided" }}
+
+                    </div>
+
+
+                    <span class="role">
+
+                        🩺 Doctor
+
+                    </span>
+
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty">
+
+            {% if search %}
+
+                <h2>
+                    No doctors found
+                </h2>
+
+                <p>
+                    No doctor matched "{{ search }}".
+                </p>
+
+            {% else %}
+
+                <h2>
+                    No doctors registered
+                </h2>
+
+                <p>
+                    There are currently no doctors in the system.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    {% endif %}
+
+
+
+    <a
+        href="{% url 'dashboard' %}"
+        class="back-button"
+    >
+
+        ← Back to Dashboard
+
+    </a>
+
+
+</main>
+
+
+</body>
+
+</html>

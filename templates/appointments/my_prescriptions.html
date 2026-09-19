@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Prescriptions | MediConnect</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f8fb;
+            color: #173b63;
+        }
+
+
+        /* HEADER */
+
+        .header {
+            background: #0f4c75;
+            color: white;
+
+            padding: 20px 50px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .logout {
+            background: white;
+            color: #0f4c75;
+
+            padding: 10px 18px;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+        }
+
+        .logout:hover {
+            background: #e8f3fa;
+        }
+
+
+        /* CONTAINER */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+
+            margin: 40px auto;
+        }
+
+
+        /* TOP */
+
+        .top-section {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 25px;
+
+            gap: 15px;
+        }
+
+        .top-section h2 {
+            margin: 0;
+
+            color: #0f4c75;
+        }
+
+        .dashboard-button {
+            background: #6c757d;
+            color: white;
+
+            padding: 11px 20px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .dashboard-button:hover {
+            background: #555d63;
+        }
+
+
+        /* PRESCRIPTION CARD */
+
+        .prescription-card {
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .prescription-header {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            border-bottom: 1px solid #ddd;
+
+            padding-bottom: 15px;
+
+            margin-bottom: 20px;
+
+            gap: 15px;
+        }
+
+        .prescription-header h3 {
+            margin: 0;
+
+            color: #0f4c75;
+        }
+
+        .date {
+            color: #666;
+
+            font-size: 14px;
+        }
+
+
+        /* INFORMATION */
+
+        .info-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            background: #f7fafc;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            border-left: 4px solid #0f4c75;
+        }
+
+        .info-box strong {
+            display: block;
+
+            color: #555;
+
+            margin-bottom: 5px;
+        }
+
+
+        /* DIAGNOSIS */
+
+        .section {
+            margin-top: 20px;
+        }
+
+        .section h4 {
+            color: #0f4c75;
+
+            margin-bottom: 10px;
+        }
+
+        .text-box {
+            background: #f7fafc;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            color: #444;
+
+            line-height: 1.6;
+
+            white-space: pre-line;
+        }
+
+
+        /* MEDICINES */
+
+        .medicine {
+            background: #f7fafc;
+
+            border: 1px solid #dce7ef;
+
+            border-radius: 10px;
+
+            padding: 18px;
+
+            margin-bottom: 12px;
+        }
+
+        .medicine h5 {
+            margin-top: 0;
+
+            margin-bottom: 15px;
+
+            color: #0f4c75;
+
+            font-size: 17px;
+        }
+
+        .medicine-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 10px;
+        }
+
+        .medicine-item {
+            background: white;
+
+            padding: 10px;
+
+            border-radius: 6px;
+        }
+
+        .medicine-item strong {
+            display: block;
+
+            color: #666;
+
+            font-size: 13px;
+
+            margin-bottom: 4px;
+        }
+
+        .medicine-item span {
+            font-weight: bold;
+
+            color: #173b63;
+        }
+
+
+        /* VIEW BUTTON */
+
+        .view-button {
+            display: inline-block;
+
+            margin-top: 20px;
+
+            padding: 11px 20px;
+
+            background: #0f4c75;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+        }
+
+        .view-button:hover {
+            background: #083b5c;
+        }
+
+
+        /* EMPTY */
+
+        .empty {
+            background: white;
+
+            padding: 50px 30px;
+
+            text-align: center;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .empty h3 {
+            color: #0f4c75;
+        }
+
+        .empty p {
+            color: #666;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .top-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .medicine-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .prescription-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            MediConnect
+        </h1>
+
+        <a
+            href="{% url 'logout' %}"
+            class="logout"
+        >
+            Logout
+        </a>
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <div class="container">
+
+
+        <!-- TOP SECTION -->
+
+        <div class="top-section">
+
+            <h2>
+                💊 My Prescriptions
+            </h2>
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="dashboard-button"
+            >
+                ← Dashboard
+            </a>
+
+        </div>
+
+
+        <!-- PRESCRIPTIONS -->
+
+        {% for prescription in prescriptions %}
+
+
+            <div class="prescription-card">
+
+
+                <!-- HEADER -->
+
+                <div class="prescription-header">
+
+                    <h3>
+                        💊 Prescription #{{ prescription.id }}
+                    </h3>
+
+                    <div class="date">
+
+                        Date:
+                        {{ prescription.prescription_date }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- DOCTOR / APPOINTMENT -->
+
+                <div class="info-grid">
+
+
+                    <div class="info-box">
+
+                        <strong>
+                            Doctor
+                        </strong>
+
+                        Dr. {{ prescription.doctor.username }}
+
+                    </div>
+
+
+                    {% if prescription.appointment %}
+
+                        <div class="info-box">
+
+                            <strong>
+                                Appointment Date
+                            </strong>
+
+                            {{ prescription.appointment.appointment_date }}
+
+                        </div>
+
+                    {% endif %}
+
+
+                </div>
+
+
+                <!-- DIAGNOSIS -->
+
+                {% if prescription.diagnosis %}
+
+                    <div class="section">
+
+                        <h4>
+                            🩺 Diagnosis
+                        </h4>
+
+                        <div class="text-box">
+
+                            {{ prescription.diagnosis }}
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- MEDICINES -->
+
+                <div class="section">
+
+                    <h4>
+                        💊 Medicines
+                    </h4>
+
+
+                    {% for medicine in prescription.medicines.all %}
+
+
+                        <div class="medicine">
+
+                            <h5>
+                                {{ forloop.counter }}.
+                                {{ medicine.medicine_name }}
+                            </h5>
+
+
+                            <div class="medicine-grid">
+
+
+                                <div class="medicine-item">
+
+                                    <strong>
+                                        Dosage
+                                    </strong>
+
+                                    <span>
+                                        {{ medicine.dosage }}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="medicine-item">
+
+                                    <strong>
+                                        Frequency
+                                    </strong>
+
+                                    <span>
+                                        {{ medicine.frequency }}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="medicine-item">
+
+                                    <strong>
+                                        Duration
+                                    </strong>
+
+                                    <span>
+                                        {{ medicine.duration }}
+                                    </span>
+
+                                </div>
+
+
+                                {% if medicine.instructions %}
+
+                                    <div class="medicine-item">
+
+                                        <strong>
+                                            Instructions
+                                        </strong>
+
+                                        <span>
+                                            {{ medicine.instructions }}
+                                        </span>
+
+                                    </div>
+
+                                {% endif %}
+
+
+                            </div>
+
+                        </div>
+
+
+                    {% empty %}
+
+
+                        <div class="text-box">
+
+                            No medicines were added to this prescription.
+
+                        </div>
+
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- GENERAL INSTRUCTIONS -->
+
+                {% if prescription.instructions %}
+
+                    <div class="section">
+
+                        <h4>
+                            📋 General Instructions
+                        </h4>
+
+                        <div class="text-box">
+
+                            {{ prescription.instructions }}
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- DETAIL BUTTON -->
+
+                <a
+                    href="{% url 'appointments:prescription_detail' prescription.id %}"
+                    class="view-button"
+                >
+                    View Full Prescription
+                </a>
+
+
+            </div>
+
+
+        {% empty %}
+
+
+            <!-- NO PRESCRIPTIONS -->
+
+            <div class="empty">
+
+                <h3>
+                    💊 No Prescriptions Yet
+                </h3>
+
+                <p>
+                    You don't have any prescriptions from your doctors yet.
+                </p>
+
+            </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+</body>
+
+</html>

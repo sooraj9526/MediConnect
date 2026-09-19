@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MediConnect | Login</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #063b5c,
+                    #087f8c
+                );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 1050px;
+
+            min-height: 600px;
+
+            background: white;
+
+            border-radius: 25px;
+
+            overflow: hidden;
+
+            display: flex;
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.25);
+        }
+
+        /* LEFT SIDE */
+
+        .left-section {
+            width: 50%;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #075985,
+                    #087f8c
+                );
+
+            color: white;
+
+            padding: 70px 60px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: bold;
+
+            margin-bottom: 60px;
+        }
+
+        .left-section h1 {
+            font-size: 55px;
+            line-height: 1.1;
+
+            margin-bottom: 25px;
+        }
+
+        .left-section p {
+            font-size: 20px;
+            line-height: 1.6;
+
+            color: #e0f2fe;
+
+            margin-bottom: 35px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+
+            margin-bottom: 20px;
+
+            font-size: 18px;
+        }
+
+        .feature span {
+            font-size: 25px;
+
+            margin-right: 15px;
+        }
+
+
+        /* RIGHT SIDE */
+
+        .right-section {
+            width: 50%;
+
+            padding: 70px 65px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right-section h2 {
+            color: #123b5d;
+
+            font-size: 36px;
+
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #718096;
+
+            font-size: 16px;
+
+            margin-bottom: 35px;
+        }
+
+
+        /* ERROR */
+
+        .error-message {
+            background: #fee2e2;
+
+            color: #b91c1c;
+
+            border: 1px solid #fecaca;
+
+            padding: 12px 15px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+            font-size: 14px;
+        }
+
+
+        /* FORM */
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+
+            color: #334155;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+
+            padding: 15px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            outline: none;
+
+            transition: 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #087f8c;
+
+            box-shadow:
+                0 0 0 3px rgba(
+                    8,
+                    127,
+                    140,
+                    0.12
+                );
+        }
+
+
+        /* BUTTON */
+
+        .login-button {
+            width: 100%;
+
+            padding: 16px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #075985,
+                    #087f8c
+                );
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            margin-top: 5px;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(
+                    7,
+                    89,
+                    133,
+                    0.3
+                );
+        }
+
+
+        /* REGISTER */
+
+        .register-link {
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #64748b;
+
+            font-size: 15px;
+        }
+
+        .register-link a {
+            color: #075985;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .login-container {
+                flex-direction: column;
+            }
+
+            .left-section,
+            .right-section {
+                width: 100%;
+            }
+
+            .left-section {
+                padding: 45px 35px;
+            }
+
+            .left-section h1 {
+                font-size: 40px;
+            }
+
+            .right-section {
+                padding: 45px 35px;
+            }
+
+            .logo {
+                margin-bottom: 30px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="login-container">
+
+
+        <!-- LEFT SIDE -->
+
+        <div class="left-section">
+
+            <div class="logo">
+                🏥 MediConnect
+            </div>
+
+            <h1>
+                Welcome<br>
+                back.
+            </h1>
+
+            <p>
+                Access your MediConnect account
+                and stay connected with your
+                healthcare network.
+            </p>
+
+            <div class="feature">
+                <span>🔒</span>
+                Secure healthcare platform
+            </div>
+
+            <div class="feature">
+                <span>👨‍⚕️</span>
+                Connect with doctors
+            </div>
+
+            <div class="feature">
+                <span>📅</span>
+                Manage appointments
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="right-section">
+
+            <h2>
+                Sign in
+            </h2>
+
+            <p class="subtitle">
+                Enter your credentials to continue.
+            </p>
+
+
+            {% if error %}
+
+                <div class="error-message">
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- IMPORTANT: CSRF TOKEN -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- Preserve next URL -->
+
+                <input
+                    type="hidden"
+                    name="next"
+                    value="{{ next }}"
+                >
+
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        required
+                        autocomplete="username"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                        autocomplete="current-password"
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    Sign In
+                </button>
+
+            </form>
+
+
+            <div class="register-link">
+
+                Don't have an account?
+
+                <a href="{% url 'register' %}">
+                    Create an account
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

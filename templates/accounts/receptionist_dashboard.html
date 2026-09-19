@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MediConnect | Receptionist</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+            background: #f4f8fb;
+            color: #17324d;
+        }
+
+
+        /* =================================================
+           NAVBAR
+        ================================================= */
+
+        .navbar {
+
+            height: 70px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #063970,
+                    #087f8c
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 40px;
+
+            color: white;
+        }
+
+
+        .logo {
+
+            font-size: 26px;
+
+            font-weight: bold;
+        }
+
+
+        .logo span {
+
+            color: #62e6e6;
+        }
+
+
+        .logout {
+
+            color: white;
+
+            text-decoration: none;
+
+            border: 1px solid rgba(255,255,255,0.5);
+
+            padding: 9px 16px;
+
+            border-radius: 8px;
+        }
+
+
+        .logout:hover {
+
+            background: rgba(255,255,255,0.1);
+        }
+
+
+        /* =================================================
+           MAIN
+        ================================================= */
+
+        .main {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 40px 25px;
+        }
+
+
+        /* =================================================
+           WELCOME
+        ================================================= */
+
+        .welcome {
+
+            margin-bottom: 30px;
+        }
+
+
+        .welcome h1 {
+
+            font-size: 32px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .welcome p {
+
+            color: #718096;
+        }
+
+
+        .role {
+
+            display: inline-block;
+
+            margin-top: 10px;
+
+            padding: 7px 15px;
+
+            border-radius: 20px;
+
+            background: #e4f7f7;
+
+            color: #087f8c;
+
+            font-weight: bold;
+
+            font-size: 13px;
+        }
+
+
+        /* =================================================
+           DASHBOARD CARDS
+        ================================================= */
+
+        .cards {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .card {
+
+            background: white;
+
+            padding: 24px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.06);
+        }
+
+
+        .icon {
+
+            font-size: 30px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .card h2 {
+
+            font-size: 28px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .card p {
+
+            color: #718096;
+
+            font-size: 14px;
+        }
+
+
+        /* =================================================
+           SECTIONS
+        ================================================= */
+
+        .sections {
+
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr;
+
+            gap: 20px;
+        }
+
+
+        .section {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.06);
+        }
+
+
+        .section h2 {
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =================================================
+           APPOINTMENT ITEM
+        ================================================= */
+
+        .appointment {
+
+            background: #f7fafc;
+
+            padding: 16px;
+
+            border-radius: 10px;
+
+            margin-bottom: 12px;
+
+            border-left:
+                4px solid #087f8c;
+        }
+
+
+        .appointment strong {
+
+            color: #17324d;
+        }
+
+
+        .appointment p {
+
+            margin-top: 5px;
+
+            color: #718096;
+
+            font-size: 14px;
+        }
+
+
+        /* =================================================
+           EMPTY
+        ================================================= */
+
+        .empty {
+
+            color: #718096;
+
+            background: #f7fafc;
+
+            padding: 20px;
+
+            border-radius: 10px;
+        }
+
+
+        /* =================================================
+           ACTIONS
+        ================================================= */
+
+        .action {
+
+            display: block;
+
+            text-decoration: none;
+
+            color: #17324d;
+
+            background: #f4f8fb;
+
+            padding: 14px;
+
+            border-radius: 10px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .action:hover {
+
+            background: #e4f7f7;
+
+            color: #087f8c;
+        }
+
+
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
+
+        @media(max-width:900px) {
+
+            .cards {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .sections {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media(max-width:550px) {
+
+            .cards {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .navbar {
+
+                padding: 0 20px;
+            }
+
+
+            .logo {
+
+                font-size: 22px;
+            }
+
+
+            .welcome h1 {
+
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        Medi<span>Connect</span>
+
+    </div>
+
+
+    <a
+        href="{% url 'logout' %}"
+        class="logout"
+    >
+
+        🚪 Logout
+
+    </a>
+
+</nav>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+    <!-- =================================================
+         WELCOME
+    ================================================= -->
+
+    <div class="welcome">
+
+        <h1>
+
+            Welcome,
+            {{ request.user.username }}
+            🏥
+
+        </h1>
+
+
+        <p>
+
+            Manage patients, doctors and appointments.
+
+        </p>
+
+
+        <span class="role">
+
+            🏥 {{ profile.get_role_display }}
+
+        </span>
+
+    </div>
+
+
+
+    <!-- =================================================
+         DASHBOARD CARDS
+    ================================================= -->
+
+    <div class="cards">
+
+
+        <!-- REGISTERED PATIENTS -->
+
+        <div class="card">
+
+            <div class="icon">
+                👥
+            </div>
+
+            <h2>
+                {{ patient_count }}
+            </h2>
+
+            <p>
+                Registered Patients
+            </p>
+
+        </div>
+
+
+
+        <!-- DOCTORS -->
+
+        <div class="card">
+
+            <div class="icon">
+                👨‍⚕️
+            </div>
+
+            <h2>
+                {{ doctor_count }}
+            </h2>
+
+            <p>
+                Doctors
+            </p>
+
+        </div>
+
+
+
+        <!-- TODAY'S APPOINTMENTS -->
+
+        <div class="card">
+
+            <div class="icon">
+                📅
+            </div>
+
+            <h2>
+                {{ today_appointments_count }}
+            </h2>
+
+            <p>
+                Today's Appointments
+            </p>
+
+        </div>
+
+
+
+        <!-- PENDING APPOINTMENTS -->
+
+        <div class="card">
+
+            <div class="icon">
+                ⏳
+            </div>
+
+            <h2>
+                {{ pending_appointments_count }}
+            </h2>
+
+            <p>
+                Pending Appointments
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         SECTIONS
+    ================================================= -->
+
+    <div class="sections">
+
+
+        <!-- =================================================
+             TODAY'S APPOINTMENTS
+        ================================================= -->
+
+        <div class="section">
+
+            <h2>
+                📅 Today's Appointments
+            </h2>
+
+
+            {% if today_appointments %}
+
+
+                {% for appointment in today_appointments %}
+
+                    <div class="appointment">
+
+                        <strong>
+
+                            {{ appointment.appointment_time }}
+
+                            —
+
+                            {{ appointment.patient.username }}
+
+                        </strong>
+
+
+                        <p>
+
+                            👨‍⚕️ Dr.
+                            {{ appointment.doctor.username }}
+
+                        </p>
+
+
+                        <p>
+
+                            Reason:
+                            {{ appointment.reason }}
+
+                        </p>
+
+
+                        <p>
+
+                            Status:
+                            {{ appointment.get_status_display }}
+
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
+
+            {% else %}
+
+                <div class="empty">
+
+                    No appointments scheduled for today.
+
+                </div>
+
+            {% endif %}
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             RECEPTION ACTIONS
+        ================================================= -->
+
+        <div class="section">
+
+            <h2>
+                Reception Actions
+            </h2>
+
+
+            <!-- =================================================
+                 VIEW PATIENTS
+            ================================================= -->
+
+            <a
+                href="{% url 'appointments:receptionist_patients' %}"
+                class="action"
+            >
+
+                👥 View Patients
+
+            </a>
+
+
+
+            <!-- =================================================
+                 MANAGE APPOINTMENTS
+            ================================================= -->
+
+            <a
+                href="{% url 'appointments:receptionist_appointments' %}"
+                class="action"
+            >
+
+                📅 Manage Appointments
+
+            </a>
+
+
+
+            <!-- =================================================
+                 DOCTOR LIST
+            ================================================= -->
+
+            <a
+                href="{% url 'appointments:receptionist_doctors' %}"
+                class="action"
+            >
+
+                👨‍⚕️ Doctor / Appointment List
+
+            </a>
+
+
+
+            <!-- =================================================
+                 SEARCH PATIENT
+            ================================================= -->
+
+            <a
+                href="{% url 'appointments:receptionist_patients' %}"
+                class="action"
+            >
+
+                🔎 Search Patient
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

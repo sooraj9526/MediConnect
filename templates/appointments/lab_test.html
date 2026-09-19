@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Request Laboratory Test | MediConnect</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: #0f172a;
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #facc15;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav-right a:hover {
+            color: #facc15;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.10);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #0f172a;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #334155;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+        }
+
+        .error {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .message {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            border: none;
+            padding: 13px 24px;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 6px;
+            color: #1e40af;
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-right {
+                gap: 10px;
+            }
+
+            .container {
+                width: 94%;
+                margin: 30px auto;
+            }
+
+            .card {
+                padding: 25px;
+            }
+
+            .button-row {
+                flex-direction: column;
+            }
+
+            .btn {
+                text-align: center;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+            MediConnect
+        </div>
+
+        <div class="nav-right">
+
+            <span>
+                Dr. {{ request.user.username }}
+            </span>
+
+            <a href="{% url 'dashboard' %}">
+                Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <div class="container">
+
+        <div class="card">
+
+            <h1>
+                Request Laboratory Test
+            </h1>
+
+            <p class="subtitle">
+                Create a laboratory test request for one of your patients.
+            </p>
+
+
+            <div class="info-box">
+
+                The request will be sent to the laboratory technician
+                with <strong>Pending</strong> status.
+
+            </div>
+
+
+            <!-- DJANGO MESSAGES -->
+
+            {% if messages %}
+
+                <div class="messages">
+
+                    {% for message in messages %}
+
+                        <div class="message">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- FORM -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- PATIENT -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.patient.id_for_label }}">
+                        Patient
+                    </label>
+
+                    {{ form.patient }}
+
+                    {% if form.patient.errors %}
+
+                        <div class="error">
+                            {{ form.patient.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- TEST NAME -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.test_name.id_for_label }}">
+                        Laboratory Test
+                    </label>
+
+                    {{ form.test_name }}
+
+                    {% if form.test_name.errors %}
+
+                        <div class="error">
+                            {{ form.test_name.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- TEST DATE -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.test_date.id_for_label }}">
+                        Test Date
+                    </label>
+
+                    {{ form.test_date }}
+
+                    {% if form.test_date.errors %}
+
+                        <div class="error">
+                            {{ form.test_date.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- NOTES -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.notes.id_for_label }}">
+                        Additional Notes
+                    </label>
+
+                    {{ form.notes }}
+
+                    {% if form.notes.errors %}
+
+                        <div class="error">
+                            {{ form.notes.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <div class="button-row">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        🧪 Send Lab Request
+                    </button>
+
+                    <a
+                        href="{% url 'dashboard' %}"
+                        class="btn btn-secondary"
+                    >
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

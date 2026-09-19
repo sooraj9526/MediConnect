@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cancel Appointment - MediConnect</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8fb;
+            margin: 0;
+            padding: 50px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #123b5d;
+        }
+
+        .warning {
+            color: #dc3545;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+
+        .details {
+            text-align: left;
+            background: #f7f9fb;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+
+        .details p {
+            margin: 10px 0;
+        }
+
+        .cancel-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 12px 25px;
+            background: #126782;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Cancel Appointment</h1>
+
+        <p class="warning">
+            Are you sure you want to cancel this appointment?
+        </p>
+
+        <div class="details">
+
+            <p>
+                <strong>Doctor:</strong>
+                Dr. {{ appointment.doctor.username }}
+            </p>
+
+            <p>
+                <strong>Date:</strong>
+                {{ appointment.appointment_date }}
+            </p>
+
+            <p>
+                <strong>Time:</strong>
+                {{ appointment.appointment_time }}
+            </p>
+
+            <p>
+                <strong>Reason:</strong>
+                {{ appointment.reason }}
+            </p>
+
+        </div>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <button type="submit" class="cancel-btn">
+                Yes, Cancel Appointment
+            </button>
+
+            <a href="{% url 'my_appointments' %}" class="back-btn">
+                No, Go Back
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

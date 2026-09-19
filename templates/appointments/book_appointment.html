@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Book Appointment | MediConnect</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f8fb;
+
+            color: #173b63;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
+
+            background: linear-gradient(
+                90deg,
+                #0f4c75,
+                #168a91
+            );
+
+            color: white;
+
+            padding: 25px 55px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .logo {
+
+            font-size: 32px;
+
+            font-weight: bold;
+        }
+
+
+        .logo span {
+
+            color: #63e6e2;
+        }
+
+
+        .dashboard-link {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 20px;
+
+            font-weight: bold;
+        }
+
+
+        .dashboard-link:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 850px;
+
+            margin: 60px auto;
+        }
+
+
+        /* =====================================================
+           CARD
+        ===================================================== */
+
+        .card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 45px;
+
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .title {
+
+            margin-bottom: 30px;
+        }
+
+
+        .title h1 {
+
+            margin: 0;
+
+            color: #173b63;
+
+            font-size: 42px;
+        }
+
+
+        .title p {
+
+            color: #64748b;
+
+            font-size: 20px;
+
+            margin-top: 12px;
+        }
+
+
+        /* =====================================================
+           MESSAGES
+        ===================================================== */
+
+        .message {
+
+            padding: 14px 18px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+            background: #fff3cd;
+
+            color: #664d03;
+
+            border: 1px solid #ffecb5;
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-group {
+
+            margin-bottom: 24px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-weight: bold;
+
+            color: #173b63;
+
+            font-size: 16px;
+        }
+
+
+        .required {
+
+            color: #dc3545;
+        }
+
+
+        .form-control {
+
+            width: 100%;
+
+            padding: 14px 15px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            background: white;
+
+            color: #173b63;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+
+        .form-control:focus {
+
+            border-color: #168a91;
+
+            box-shadow:
+                0 0 0 3px rgba(22, 138, 145, 0.12);
+        }
+
+
+        textarea.form-control {
+
+            resize: vertical;
+
+            min-height: 120px;
+        }
+
+
+        /* =====================================================
+           DATE AND TIME ROW
+        ===================================================== */
+
+        .form-row {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+        }
+
+
+        /* =====================================================
+           BUTTON
+        ===================================================== */
+
+        .submit-button {
+
+            width: 100%;
+
+            border: none;
+
+            padding: 16px;
+
+            margin-top: 10px;
+
+            border-radius: 9px;
+
+            background: linear-gradient(
+                90deg,
+                #24558a,
+                #2196a3
+            );
+
+            color: white;
+
+            font-size: 19px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .submit-button:hover {
+
+            transform: translateY(-1px);
+
+            opacity: 0.95;
+        }
+
+
+        /* =====================================================
+           BACK BUTTON
+        ===================================================== */
+
+        .back-button {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            padding: 12px 20px;
+
+            background: #6c757d;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+        }
+
+
+        .back-button:hover {
+
+            background: #555d63;
+        }
+
+
+        /* =====================================================
+           NO DOCTORS
+        ===================================================== */
+
+        .no-doctors {
+
+            padding: 18px;
+
+            background: #fff3cd;
+
+            border: 1px solid #ffecb5;
+
+            border-radius: 8px;
+
+            color: #664d03;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .header {
+
+                padding: 20px;
+
+            }
+
+
+            .logo {
+
+                font-size: 24px;
+
+            }
+
+
+            .dashboard-link {
+
+                font-size: 16px;
+
+            }
+
+
+            .container {
+
+                width: 94%;
+
+                margin: 30px auto;
+
+            }
+
+
+            .card {
+
+                padding: 25px;
+
+            }
+
+
+            .title h1 {
+
+                font-size: 30px;
+
+            }
+
+
+            .title p {
+
+                font-size: 17px;
+
+            }
+
+
+            .form-row {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
+
+    <div class="header">
+
+
+        <div class="logo">
+
+            Medi<span>Connect</span>
+
+        </div>
+
+
+        <a
+            href="{% url 'dashboard' %}"
+            class="dashboard-link"
+        >
+            ← Dashboard
+        </a>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <div class="container">
+
+
+        <div class="card">
+
+
+            <!-- =================================================
+                 TITLE
+            ================================================= -->
+
+            <div class="title">
+
+                <h1>
+                    Book an Appointment 📅
+                </h1>
+
+                <p>
+                    Choose a doctor and schedule your appointment.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 DJANGO MESSAGES
+            ================================================= -->
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="message">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+
+
+            <!-- =================================================
+                 NO DOCTORS MESSAGE
+            ================================================= -->
+
+            {% if not doctors %}
+
+                <div class="no-doctors">
+
+                    <strong>
+                        No doctors are available yet.
+                    </strong>
+
+                    <br><br>
+
+                    Please create a doctor account first,
+                    then return to this page.
+
+                </div>
+
+            {% endif %}
+
+
+
+            <!-- =================================================
+                 APPOINTMENT FORM
+            ================================================= -->
+
+            <form
+                method="POST"
+                action="{% url 'appointments:book' %}"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- =================================================
+                     DOCTOR
+                ================================================= -->
+
+                <div class="form-group">
+
+                    <label for="doctor">
+
+                        Select Doctor
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <select
+                        name="doctor"
+                        id="doctor"
+                        class="form-control"
+                        required
+                    >
+
+                        <option value="">
+                            -- Select a Doctor --
+                        </option>
+
+
+                        {% for doctor in doctors %}
+
+                            <option value="{{ doctor.id }}">
+
+                                Dr. {{ doctor.username }}
+
+                                {% if doctor.email %}
+                                    - {{ doctor.email }}
+                                {% endif %}
+
+                            </option>
+
+                        {% endfor %}
+
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     DATE + TIME
+                ================================================= -->
+
+                <div class="form-row">
+
+
+                    <!-- DATE -->
+
+                    <div class="form-group">
+
+                        <label for="appointment_date">
+
+                            Appointment Date
+                            <span class="required">*</span>
+
+                        </label>
+
+
+                        <input
+                            type="date"
+                            name="appointment_date"
+                            id="appointment_date"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- TIME -->
+
+                    <div class="form-group">
+
+                        <label for="appointment_time">
+
+                            Appointment Time
+                            <span class="required">*</span>
+
+                        </label>
+
+
+                        <input
+                            type="time"
+                            name="appointment_time"
+                            id="appointment_time"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     REASON
+                ================================================= -->
+
+                <div class="form-group">
+
+                    <label for="reason">
+
+                        Reason for Appointment
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <textarea
+                        name="reason"
+                        id="reason"
+                        class="form-control"
+                        placeholder="Explain the reason for your appointment..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     SUBMIT
+                ================================================= -->
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                >
+                    📅 Book Appointment
+                </button>
+
+
+            </form>
+
+
+
+            <!-- =================================================
+                 BACK BUTTON
+            ================================================= -->
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="back-button"
+            >
+                ← Back to Dashboard
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

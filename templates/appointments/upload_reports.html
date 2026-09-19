@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Upload Laboratory Report | MediConnect</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f8fb;
+            color: #123b63;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1100px;
+            margin: auto;
+            padding: 50px 0;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 44px;
+            margin: 0 0 10px 0;
+            color: #123b63;
+        }
+
+        .header p {
+            font-size: 20px;
+            color: #64809d;
+            margin: 0;
+        }
+
+        .info {
+            background: #e0f7f8;
+            border-left: 5px solid #008b95;
+            padding: 22px 25px;
+            border-radius: 12px;
+            margin-bottom: 35px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .info strong {
+            color: #123b63;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 22px;
+            padding: 45px;
+            box-shadow:
+                0 8px 30px
+                rgba(20, 70, 110, 0.10);
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #123b63;
+        }
+
+        select,
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 15px 17px;
+            border: 2px solid #d9e5ee;
+            border-radius: 12px;
+            background: white;
+            color: #123b63;
+            font-size: 17px;
+            font-family: Arial, sans-serif;
+            outline: none;
+        }
+
+        select:focus,
+        textarea:focus,
+        input[type="file"]:focus {
+            border-color: #008b95;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        input[type="file"] {
+            padding: 13px;
+            cursor: pointer;
+        }
+
+        .help-text {
+            display: block;
+            margin-top: 8px;
+            color: #64809d;
+            font-size: 15px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        .btn {
+            border: none;
+            text-decoration: none;
+            padding: 16px 30px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-upload {
+            background: #008b95;
+            color: white;
+        }
+
+        .btn-upload:hover {
+            background: #00727a;
+        }
+
+        .btn-cancel {
+            background: #edf2f6;
+            color: #123b63;
+        }
+
+        .btn-cancel:hover {
+            background: #dce6ed;
+        }
+
+        .message {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            background: #e0f7f8;
+            color: #006b73;
+            font-size: 17px;
+        }
+
+        .no-tests {
+            background: #fff7e6;
+            border-left: 5px solid #f0a500;
+            padding: 20px;
+            border-radius: 10px;
+            color: #805b00;
+            font-size: 18px;
+        }
+
+        @media (max-width: 700px) {
+
+            .container {
+                width: 94%;
+                padding: 30px 0;
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .form-card {
+                padding: 25px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                text-align: center;
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <div class="header">
+
+        <h1>
+            📄 Upload Laboratory Report
+        </h1>
+
+        <p>
+            Add test results and upload the patient's
+            laboratory report.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         INFORMATION
+    ====================================================== -->
+
+    <div class="info">
+
+        <strong>Important:</strong>
+
+        Only completed laboratory tests are available
+        for report upload.
+
+        <br>
+
+        Select the completed test, enter the result,
+        add any notes, and upload the report file.
+
+    </div>
+
+
+    <!-- =====================================================
+         DJANGO MESSAGES
+    ====================================================== -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="message">
+
+                {{ message }}
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         FORM
+    ====================================================== -->
+
+    <div class="form-card">
+
+
+        {% if tests %}
+
+
+            <form method="POST"
+                  enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+
+                <!-- =================================================
+                     COMPLETED TEST
+                ================================================== -->
+
+                <div class="form-group">
+
+                    <label for="lab_test">
+
+                        Completed Laboratory Test
+
+                    </label>
+
+
+                    <select
+                        name="lab_test"
+                        id="lab_test"
+                        required
+                    >
+
+                        <option value="">
+
+                            -- Select Completed Test --
+
+                        </option>
+
+
+                        {% for test in tests %}
+
+                            <option value="{{ test.id }}">
+
+                                {{ test.test_name }}
+                                -
+                                {{ test.patient.username }}
+
+                                {% if test.test_date %}
+                                    -
+                                    {{ test.test_date }}
+                                {% endif %}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                    <span class="help-text">
+
+                        Select the laboratory test for which
+                        you are uploading the result.
+
+                    </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     TEST RESULT
+                ================================================== -->
+
+                <div class="form-group">
+
+                    <label for="result">
+
+                        Test Result
+
+                    </label>
+
+
+                    <textarea
+                        name="result"
+                        id="result"
+                        placeholder="Enter the laboratory test result here..."
+                        required
+                    ></textarea>
+
+
+                    <span class="help-text">
+
+                        Enter the patient's laboratory
+                        test result.
+
+                    </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     ADDITIONAL NOTES
+                ================================================== -->
+
+                <div class="form-group">
+
+                    <label for="notes">
+
+                        Additional Notes
+
+                    </label>
+
+
+                    <textarea
+                        name="notes"
+                        id="notes"
+                        placeholder="Enter any additional notes or observations..."
+                    ></textarea>
+
+
+                    <span class="help-text">
+
+                        Add any additional information
+                        related to the laboratory test.
+
+                    </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     REPORT FILE
+                ================================================== -->
+
+                <div class="form-group">
+
+                    <label for="report_file">
+
+                        Laboratory Report File
+
+                    </label>
+
+
+                    <input
+                        type="file"
+                        name="report_file"
+                        id="report_file"
+                        accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                    >
+
+
+                    <span class="help-text">
+
+                        Upload the laboratory report
+                        document.
+
+                    </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     BUTTONS
+                ================================================== -->
+
+                <div class="buttons">
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-upload"
+                    >
+
+                        📤 Upload Report
+
+                    </button>
+
+
+                    <a
+                        href="{% url 'appointments:completed_reports' %}"
+                        class="btn btn-cancel"
+                    >
+
+                        Cancel
+
+                    </a>
+
+
+                </div>
+
+
+            </form>
+
+
+        {% else %}
+
+
+            <!-- =================================================
+                 NO COMPLETED TESTS
+            ================================================== -->
+
+            <div class="no-tests">
+
+                <strong>
+                    No completed laboratory tests available.
+                </strong>
+
+                <br><br>
+
+                A laboratory report can be uploaded only
+                after a laboratory test has been completed.
+
+            </div>
+
+
+            <div class="buttons">
+
+                <a
+                    href="{% url 'appointments:process_tests' %}"
+                    class="btn btn-upload"
+                >
+
+                    🔬 Go to Process Tests
+
+                </a>
+
+
+                <a
+                    href="{% url 'appointments:completed_reports' %}"
+                    class="btn btn-cancel"
+                >
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

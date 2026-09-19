@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MediConnect | Book Appointment</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8fb;
+            color: #17324d;
+        }
+
+        .navbar {
+            height: 70px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #063970,
+                    #087f8c
+                );
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 40px;
+
+            color: white;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #62e6e6;
+        }
+
+        .logout {
+            color: white;
+            text-decoration: none;
+
+            border: 1px solid rgba(255,255,255,0.5);
+
+            padding: 9px 16px;
+
+            border-radius: 8px;
+        }
+
+        .main {
+            max-width: 800px;
+
+            margin: auto;
+
+            padding: 45px 25px;
+        }
+
+        .header {
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 34px;
+
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #718096;
+        }
+
+        .form-card {
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-weight: bold;
+
+            color: #17324d;
+        }
+
+        select,
+        input,
+        textarea {
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #d6dee8;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        select:focus,
+        input:focus,
+        textarea:focus {
+            border-color: #087f8c;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .row {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+        }
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .message {
+            padding: 12px;
+
+            border-radius: 8px;
+
+            background: #ffe5e5;
+
+            color: #b42323;
+
+            margin-bottom: 8px;
+        }
+
+        .submit-button {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #063970;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background: #087f8c;
+        }
+
+        .back-button {
+            display: inline-block;
+
+            margin-top: 20px;
+
+            text-decoration: none;
+
+            color: #063970;
+
+            font-weight: bold;
+        }
+
+        @media(max-width: 600px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .main {
+                padding: 30px 15px;
+            }
+
+            .row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .header h1 {
+                font-size: 27px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="logo">
+        Medi<span>Connect</span>
+    </div>
+
+    <a
+        href="{% url 'logout' %}"
+        class="logout"
+    >
+        🚪 Logout
+    </a>
+
+</nav>
+
+
+
+<main class="main">
+
+
+    <div class="header">
+
+        <h1>
+            📅 Book Appointment
+        </h1>
+
+        <p>
+            Book an appointment on behalf of a patient.
+        </p>
+
+    </div>
+
+
+
+    {% if messages %}
+
+        <div class="messages">
+
+            {% for message in messages %}
+
+                <div class="message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+
+
+    <div class="form-card">
+
+        <form
+            method="POST"
+        >
+
+            {% csrf_token %}
+
+
+            <!-- PATIENT -->
+
+            <div class="form-group">
+
+                <label>
+                    👤 Select Patient
+                </label>
+
+                <select
+                    name="patient"
+                    required
+                >
+
+                    <option value="">
+                        -- Select Patient --
+                    </option>
+
+                    {% for patient in patients %}
+
+                        <option value="{{ patient.id }}">
+
+                            {{ patient.username }}
+
+                            {% if patient.email %}
+                                - {{ patient.email }}
+                            {% endif %}
+
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+
+            <!-- DOCTOR -->
+
+            <div class="form-group">
+
+                <label>
+                    👨‍⚕️ Select Doctor
+                </label>
+
+                <select
+                    name="doctor"
+                    required
+                >
+
+                    <option value="">
+                        -- Select Doctor --
+                    </option>
+
+                    {% for doctor in doctors %}
+
+                        <option value="{{ doctor.id }}">
+
+                            Dr. {{ doctor.username }}
+
+                            {% if doctor.email %}
+                                - {{ doctor.email }}
+                            {% endif %}
+
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+
+            <!-- DATE + TIME -->
+
+            <div class="row">
+
+
+                <div class="form-group">
+
+                    <label>
+                        📅 Appointment Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="appointment_date"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        ⏰ Appointment Time
+                    </label>
+
+                    <input
+                        type="time"
+                        name="appointment_time"
+                        required
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- REASON -->
+
+            <div class="form-group">
+
+                <label>
+                    📝 Reason for Appointment
+                </label>
+
+                <textarea
+                    name="reason"
+                    rows="5"
+                    placeholder="Enter the reason for the patient's appointment..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+
+            <button
+                type="submit"
+                class="submit-button"
+            >
+
+                📅 Book Appointment
+
+            </button>
+
+
+        </form>
+
+
+        <a
+            href="{% url 'dashboard' %}"
+            class="back-button"
+        >
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Patients | MediConnect</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f8fb;
+
+            color: #173b63;
+        }
+
+
+        /* =================================================
+           HEADER
+        ================================================= */
+
+        .header {
+
+            background: #0f4c75;
+
+            color: white;
+
+            padding: 20px 50px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .header h1 {
+
+            margin: 0;
+        }
+
+
+        .logout {
+
+            background: white;
+
+            color: #0f4c75;
+
+            padding: 10px 18px;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+        }
+
+
+        .logout:hover {
+
+            background: #e8f3fa;
+        }
+
+
+        /* =================================================
+           MAIN CONTAINER
+        ================================================= */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 1200px;
+
+            margin: 40px auto;
+        }
+
+
+        /* =================================================
+           TOP SECTION
+        ================================================= */
+
+        .top-section {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 30px;
+
+            gap: 15px;
+        }
+
+
+        .top-section h2 {
+
+            margin: 0;
+
+            color: #0f4c75;
+        }
+
+
+        .back-button {
+
+            background: #6c757d;
+
+            color: white;
+
+            padding: 11px 20px;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+        }
+
+
+        .back-button:hover {
+
+            background: #555d63;
+        }
+
+
+        /* =================================================
+           SEARCH SECTION
+        ================================================= */
+
+        .search-box {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .search-box h3 {
+
+            margin-bottom: 15px;
+
+            color: #0f4c75;
+        }
+
+
+        .search-form {
+
+            display: flex;
+
+            gap: 10px;
+
+            width: 100%;
+        }
+
+
+        .search-input {
+
+            flex: 1;
+
+            padding: 14px 16px;
+
+            border: 1px solid #cbd5e0;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+
+        .search-input:focus {
+
+            border-color: #0f4c75;
+
+            box-shadow:
+                0 0 0 3px rgba(15, 76, 117, 0.10);
+        }
+
+
+        .search-button {
+
+            background: #0f4c75;
+
+            color: white;
+
+            border: none;
+
+            padding: 14px 24px;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .search-button:hover {
+
+            background: #087f8c;
+        }
+
+
+        .clear-button {
+
+            background: #6c757d;
+
+            color: white;
+
+            padding: 14px 20px;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .clear-button:hover {
+
+            background: #555d63;
+        }
+
+
+        .search-info {
+
+            margin-top: 12px;
+
+            color: #666;
+
+            font-size: 14px;
+        }
+
+
+        .search-info strong {
+
+            color: #0f4c75;
+        }
+
+
+        /* =================================================
+           PATIENT COUNT
+        ================================================= */
+
+        .patient-count {
+
+            background: white;
+
+            padding: 20px 25px;
+
+            border-radius: 12px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+
+            color: #555;
+        }
+
+
+        .patient-count strong {
+
+            color: #0f4c75;
+
+            font-size: 20px;
+        }
+
+
+        /* =================================================
+           PATIENT GRID
+        ================================================= */
+
+        .patients-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 25px;
+        }
+
+
+        /* =================================================
+           PATIENT CARD
+        ================================================= */
+
+        .patient-card {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+
+        /* =================================================
+           PATIENT HEADER
+        ================================================= */
+
+        .patient-header {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            border-bottom:
+                1px solid #e1e7ec;
+
+            padding-bottom: 18px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .patient-icon {
+
+            width: 55px;
+
+            height: 55px;
+
+            border-radius: 50%;
+
+            background: #e8f3fa;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 28px;
+        }
+
+
+        .patient-header h3 {
+
+            margin: 0;
+
+            color: #0f4c75;
+        }
+
+
+        .patient-header p {
+
+            margin: 5px 0 0;
+
+            color: #777;
+        }
+
+
+        /* =================================================
+           PATIENT INFORMATION
+        ================================================= */
+
+        .info-box {
+
+            background: #f7fafc;
+
+            padding: 14px;
+
+            border-radius: 8px;
+
+            margin-bottom: 12px;
+
+            border-left:
+                4px solid #0f4c75;
+        }
+
+
+        .info-box strong {
+
+            display: block;
+
+            color: #666;
+
+            font-size: 13px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .info-box span {
+
+            color: #173b63;
+
+            word-break: break-word;
+        }
+
+
+        /* =================================================
+           EMPTY STATE
+        ================================================= */
+
+        .empty {
+
+            background: white;
+
+            padding: 60px 30px;
+
+            border-radius: 15px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .empty-icon {
+
+            font-size: 55px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .empty h3 {
+
+            color: #0f4c75;
+
+            margin-bottom: 10px;
+        }
+
+
+        .empty p {
+
+            color: #666;
+        }
+
+
+        /* =================================================
+           MOBILE
+        ================================================= */
+
+        @media (max-width: 800px) {
+
+            .header {
+
+                padding: 20px;
+            }
+
+
+            .header h1 {
+
+                font-size: 22px;
+            }
+
+
+            .container {
+
+                width: 94%;
+            }
+
+
+            .top-section {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .patients-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .search-form {
+
+                flex-direction: column;
+            }
+
+
+            .search-button,
+            .clear-button {
+
+                width: 100%;
+
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<div class="header">
+
+    <h1>
+
+        MediConnect
+
+    </h1>
+
+
+    <a
+        href="{% url 'logout' %}"
+        class="logout"
+    >
+
+        🚪 Logout
+
+    </a>
+
+</div>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="container">
+
+
+    <!-- =================================================
+         TOP SECTION
+    ================================================= -->
+
+    <div class="top-section">
+
+        <h2>
+
+            👥 All Patients
+
+        </h2>
+
+
+        <a
+            href="{% url 'dashboard' %}"
+            class="back-button"
+        >
+
+            ← Dashboard
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================================
+         SEARCH PATIENT
+    ================================================= -->
+
+    <div class="search-box">
+
+        <h3>
+
+            🔎 Search Patient
+
+        </h3>
+
+
+        <form
+            method="GET"
+            action="{% url 'appointments:receptionist_patients' %}"
+            class="search-form"
+        >
+
+
+            <input
+                type="text"
+                name="q"
+                value="{{ search }}"
+                class="search-input"
+                placeholder="Search by username, email or phone..."
+                autocomplete="off"
+            >
+
+
+            <button
+                type="submit"
+                class="search-button"
+            >
+
+                🔎 Search
+
+            </button>
+
+
+            {% if search %}
+
+                <a
+                    href="{% url 'appointments:receptionist_patients' %}"
+                    class="clear-button"
+                >
+
+                    ✕ Clear
+
+                </a>
+
+            {% endif %}
+
+
+        </form>
+
+
+        {% if search %}
+
+            <div class="search-info">
+
+                Showing search results for:
+
+                <strong>
+                    "{{ search }}"
+                </strong>
+
+            </div>
+
+        {% else %}
+
+            <div class="search-info">
+
+                You can search patients by
+                <strong>username</strong>,
+                <strong>email</strong>,
+                or
+                <strong>phone number</strong>.
+
+            </div>
+
+        {% endif %}
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         PATIENT COUNT
+    ================================================= -->
+
+    <div class="patient-count">
+
+        <strong>
+
+            {{ patients|length }}
+
+        </strong>
+
+        Registered Patient{{ patients|length|pluralize }}
+
+    </div>
+
+
+
+    <!-- =================================================
+         PATIENTS
+    ================================================= -->
+
+    {% if patients %}
+
+
+        <div class="patients-grid">
+
+
+            {% for patient in patients %}
+
+
+                <div class="patient-card">
+
+
+                    <!-- PATIENT HEADER -->
+
+                    <div class="patient-header">
+
+
+                        <div class="patient-icon">
+
+                            🧑
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+
+                                {{ patient.username }}
+
+                            </h3>
+
+
+                            <p>
+
+                                Patient
+
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- USERNAME -->
+
+                    <div class="info-box">
+
+                        <strong>
+
+                            Username
+
+                        </strong>
+
+
+                        <span>
+
+                            {{ patient.username }}
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="info-box">
+
+                        <strong>
+
+                            Email
+
+                        </strong>
+
+
+                        <span>
+
+
+                            {% if patient.email %}
+
+                                {{ patient.email }}
+
+                            {% else %}
+
+                                Not provided
+
+                            {% endif %}
+
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- PHONE -->
+
+                    <div class="info-box">
+
+                        <strong>
+
+                            Phone
+
+                        </strong>
+
+
+                        <span>
+
+
+                            {% if patient.userprofile.phone %}
+
+                                {{ patient.userprofile.phone }}
+
+                            {% else %}
+
+                                Not provided
+
+                            {% endif %}
+
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="info-box">
+
+                        <strong>
+
+                            Address
+
+                        </strong>
+
+
+                        <span>
+
+
+                            {% if patient.userprofile.address %}
+
+                                {{ patient.userprofile.address }}
+
+                            {% else %}
+
+                                Not provided
+
+                            {% endif %}
+
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- ROLE -->
+
+                    <div class="info-box">
+
+                        <strong>
+
+                            Role
+
+                        </strong>
+
+
+                        <span>
+
+                            Patient
+
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+    {% else %}
+
+
+        <!-- =================================================
+             NO PATIENTS / NO SEARCH RESULTS
+        ================================================= -->
+
+        <div class="empty">
+
+
+            <div class="empty-icon">
+
+                🔎
+
+            </div>
+
+
+            {% if search %}
+
+                <h3>
+
+                    No Patients Found
+
+                </h3>
+
+
+                <p>
+
+                    No patient matches
+
+                    <strong>
+                        "{{ search }}"
+                    </strong>
+
+                </p>
+
+            {% else %}
+
+                <h3>
+
+                    No Patients Found
+
+                </h3>
+
+
+                <p>
+
+                    There are currently no registered patients
+                    in MediConnect.
+
+                </p>
+
+            {% endif %}
+
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>

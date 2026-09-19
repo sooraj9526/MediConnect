@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Edit Profile | MediConnect</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f8fb;
+
+            color: #173b63;
+        }
+
+        .header {
+            background: #0f4c75;
+
+            color: white;
+
+            padding: 20px 50px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .logout {
+            background: white;
+
+            color: #0f4c75;
+
+            padding: 10px 18px;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+
+            max-width: 700px;
+
+            margin: 50px auto;
+        }
+
+        .card {
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            text-align: center;
+
+            color: #0f4c75;
+
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-weight: bold;
+
+            color: #0f4c75;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #ccd6df;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+
+            border-color: #0f4c75;
+        }
+
+        .error {
+            color: #c0392b;
+
+            font-size: 14px;
+
+            margin-top: 5px;
+        }
+
+        .buttons {
+            text-align: center;
+
+            margin-top: 30px;
+        }
+
+        button,
+        .back-button {
+            display: inline-block;
+
+            padding: 13px 25px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            margin: 5px;
+        }
+
+        button {
+            background: #0f4c75;
+
+            color: white;
+        }
+
+        button:hover {
+            background: #083b5c;
+        }
+
+        .back-button {
+            background: #e6edf3;
+
+            color: #173b63;
+        }
+
+        .help {
+            color: #666;
+
+            font-size: 13px;
+
+            margin-top: 5px;
+        }
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding: 20px;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .card {
+                padding: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="header">
+
+        <h1>
+            MediConnect
+        </h1>
+
+        <a
+            href="{% url 'logout' %}"
+            class="logout"
+        >
+            Logout
+        </a>
+
+    </div>
+
+
+    <div class="container">
+
+
+        <div class="card">
+
+
+            <h2>
+                ✏️ Edit Patient Profile
+            </h2>
+
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="{{ user_form.email.id_for_label }}">
+                        Email
+                    </label>
+
+                    {{ user_form.email }}
+
+                    {% for error in user_form.email.errors %}
+
+                        <div class="error">
+                            {{ error }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="form-group">
+
+                    <label for="{{ profile_form.phone.id_for_label }}">
+                        Phone
+                    </label>
+
+                    {{ profile_form.phone }}
+
+                    {% for error in profile_form.phone.errors %}
+
+                        <div class="error">
+                            {{ error }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- ADDRESS -->
+
+                <div class="form-group">
+
+                    <label for="{{ profile_form.address.id_for_label }}">
+                        Address
+                    </label>
+
+                    {{ profile_form.address }}
+
+                    {% for error in profile_form.address.errors %}
+
+                        <div class="error">
+                            {{ error }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- PROFILE PICTURE -->
+
+                <div class="form-group">
+
+                    <label for="{{ profile_form.profile_picture.id_for_label }}">
+                        Profile Picture
+                    </label>
+
+                    {{ profile_form.profile_picture }}
+
+                    <div class="help">
+                        Choose a profile picture if you want to change it.
+                    </div>
+
+                    {% for error in profile_form.profile_picture.errors %}
+
+                        <div class="error">
+                            {{ error }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <div class="buttons">
+
+                    <button type="submit">
+                        Save Changes
+                    </button>
+
+                    <a
+                        href="{% url 'patient_profile' %}"
+                        class="back-button"
+                    >
+                        Cancel
+                    </a>
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

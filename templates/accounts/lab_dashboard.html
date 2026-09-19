@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Lab Technician Dashboard | MediConnect</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f8fb;
+
+            color: #123b63;
+        }
+
+
+        /* ================================
+           TOP HEADER
+        ================================= */
+
+        .top-header {
+
+            width: 92%;
+
+            max-width: 1500px;
+
+            margin: 0 auto;
+
+            padding-top: 35px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 20px;
+        }
+
+
+        .header-content {
+            flex: 1;
+        }
+
+
+        h1 {
+
+            font-size: 42px;
+
+            margin: 0 0 10px 0;
+        }
+
+
+        .subtitle {
+
+            font-size: 21px;
+
+            color: #64809d;
+
+            margin-bottom: 18px;
+        }
+
+
+        .role {
+
+            display: inline-block;
+
+            background: #e0f7f8;
+
+            color: #008b95;
+
+            padding: 12px 25px;
+
+            border-radius: 30px;
+
+            font-weight: bold;
+
+            font-size: 18px;
+
+            margin-bottom: 45px;
+        }
+
+
+        /* ================================
+           LOGOUT BUTTON
+        ================================= */
+
+        .logout {
+
+            display: inline-block;
+
+            background: #0f4c75;
+
+            color: white;
+
+            padding: 12px 22px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+
+            transition: 0.2s;
+        }
+
+
+        .logout:hover {
+
+            background: #083b5c;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* ================================
+           MAIN CONTAINER
+        ================================= */
+
+        .container {
+
+            width: 92%;
+
+            max-width: 1500px;
+
+            margin: auto;
+
+            padding-bottom: 45px;
+        }
+
+
+        /* ================================
+           STATISTICS CARDS
+        ================================= */
+
+        .cards {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 26px;
+
+            margin-bottom: 42px;
+        }
+
+
+        .card {
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 35px;
+
+            min-height: 225px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(20, 70, 110, 0.08);
+        }
+
+
+        .icon {
+
+            font-size: 48px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .number {
+
+            font-size: 40px;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+        }
+
+
+        .label {
+
+            font-size: 20px;
+
+            color: #607d9c;
+        }
+
+
+        /* ================================
+           MAIN GRID
+        ================================= */
+
+        .main-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr;
+
+            gap: 30px;
+        }
+
+
+        .panel {
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 35px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(20, 70, 110, 0.08);
+        }
+
+
+        .panel h2 {
+
+            margin-top: 0;
+
+            font-size: 32px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* ================================
+           EMPTY / TEST BOX
+        ================================= */
+
+        .empty {
+
+            background: #f5f8fa;
+
+            padding: 25px;
+
+            border-radius: 16px;
+
+            color: #67809c;
+
+            font-size: 20px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .test-box {
+
+            background: #f5f8fa;
+
+            padding: 25px;
+
+            border-radius: 16px;
+
+            margin-bottom: 15px;
+
+            color: #123b63;
+
+            font-size: 18px;
+        }
+
+
+        .test-box strong {
+
+            font-size: 22px;
+        }
+
+
+        .test-info {
+
+            margin-top: 8px;
+
+            color: #67809c;
+        }
+
+
+        /* ================================
+           ACTION BUTTONS
+        ================================= */
+
+        .actions {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 14px;
+        }
+
+
+        .action {
+
+            display: block;
+
+            text-decoration: none;
+
+            background: #f3f7fa;
+
+            color: #123b63;
+
+            padding: 20px;
+
+            border-radius: 15px;
+
+            font-size: 20px;
+
+            transition: 0.2s;
+
+            border: none;
+        }
+
+
+        .action:hover {
+
+            background: #dff7f8;
+
+            color: #008b95;
+
+            transform: translateX(4px);
+        }
+
+
+        .start-button {
+
+            display: inline-block;
+
+            margin-top: 18px;
+
+            text-decoration: none;
+
+            background: #008b95;
+
+            color: white;
+
+            padding: 13px 22px;
+
+            border-radius: 10px;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+
+        .start-button:hover {
+
+            background: #006f77;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* ================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 1000px) {
+
+            .cards {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .main-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .top-header {
+
+                align-items: flex-start;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .top-header {
+
+                width: 92%;
+
+                flex-direction: column;
+
+                padding-top: 25px;
+            }
+
+
+            .logout {
+
+                margin-top: -20px;
+
+                margin-bottom: 20px;
+            }
+
+
+            .cards {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            h1 {
+
+                font-size: 32px;
+            }
+
+
+            .subtitle {
+
+                font-size: 18px;
+            }
+
+
+            .panel {
+
+                padding: 25px;
+            }
+
+
+            .panel h2 {
+
+                font-size: 26px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <div class="top-header">
+
+
+        <div class="header-content">
+
+            <h1>
+                Welcome, {{ request.user.username }} 🧪
+            </h1>
+
+
+            <div class="subtitle">
+
+                Manage laboratory tests and patient reports.
+
+            </div>
+
+
+            <div class="role">
+
+                🧪 Lab Technician
+
+            </div>
+
+        </div>
+
+
+        <!-- LOGOUT -->
+
+        <a
+            href="{% url 'logout' %}"
+            class="logout"
+        >
+            🚪 Logout
+        </a>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         MAIN CONTAINER
+    ========================================== -->
+
+    <div class="container">
+
+
+        <!-- =========================================
+             STATISTICS
+        ========================================== -->
+
+        <div class="cards">
+
+
+            <!-- PENDING TESTS -->
+
+            <div class="card">
+
+                <div class="icon">
+                    🧪
+                </div>
+
+                <div class="number">
+                    {{ pending_tests_count }}
+                </div>
+
+                <div class="label">
+                    Pending Tests
+                </div>
+
+            </div>
+
+
+
+            <!-- PROCESSING TESTS -->
+
+            <div class="card">
+
+                <div class="icon">
+                    🔬
+                </div>
+
+                <div class="number">
+                    {{ processing_tests_count }}
+                </div>
+
+                <div class="label">
+                    Tests Processing
+                </div>
+
+            </div>
+
+
+
+            <!-- COMPLETED TESTS -->
+
+            <div class="card">
+
+                <div class="icon">
+                    ✅
+                </div>
+
+                <div class="number">
+                    {{ completed_tests_count }}
+                </div>
+
+                <div class="label">
+                    Completed Tests
+                </div>
+
+            </div>
+
+
+
+            <!-- REPORTS -->
+
+            <div class="card">
+
+                <div class="icon">
+                    📄
+                </div>
+
+                <div class="number">
+                    {{ reports_count }}
+                </div>
+
+                <div class="label">
+                    Reports
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================================
+             MAIN CONTENT
+        ========================================== -->
+
+        <div class="main-grid">
+
+
+            <!-- =====================================
+                 PENDING LABORATORY REQUESTS
+            ====================================== -->
+
+            <div class="panel">
+
+                <h2>
+                    Pending Laboratory Requests
+                </h2>
+
+
+                {% if pending_tests %}
+
+
+                    {% for test in pending_tests %}
+
+
+                        <div class="test-box">
+
+
+                            <strong>
+                                {{ test.test_name }}
+                            </strong>
+
+
+                            <div class="test-info">
+
+                                Patient:
+                                {{ test.patient.username }}
+
+                            </div>
+
+
+                            {% if test.test_date %}
+
+                                <div class="test-info">
+
+                                    Test Date:
+                                    {{ test.test_date }}
+
+                                </div>
+
+                            {% endif %}
+
+
+                            {% if test.notes %}
+
+                                <div class="test-info">
+
+                                    Notes:
+                                    {{ test.notes }}
+
+                                </div>
+
+                            {% endif %}
+
+
+
+                            <!-- START TEST BUTTON -->
+
+                            <a
+                                class="start-button"
+                                href="{% url 'appointments:start_test' test.id %}"
+                            >
+                                🔬 Start Processing
+                            </a>
+
+
+                        </div>
+
+
+                    {% endfor %}
+
+
+                {% else %}
+
+
+                    <div class="empty">
+
+                        No laboratory requests are available.
+
+                    </div>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+
+            <!-- =====================================
+                 LABORATORY ACTIONS
+            ====================================== -->
+
+            <div class="panel">
+
+
+                <h2>
+                    Laboratory Actions
+                </h2>
+
+
+                <div class="actions">
+
+
+                    <!-- TEST REQUESTS -->
+
+                    <a
+                        class="action"
+                        href="{% url 'appointments:test_requests' %}"
+                    >
+                        🧪 Test Requests
+                    </a>
+
+
+
+                    <!-- PROCESS TESTS -->
+
+                    <a
+                        class="action"
+                        href="{% url 'appointments:process_tests' %}"
+                    >
+                        🔬 Process Tests
+                    </a>
+
+
+
+                    <!-- UPLOAD REPORTS -->
+
+                    <a
+                        class="action"
+                        href="{% url 'appointments:upload_lab_report' %}"
+                    >
+                        📄 Upload Reports
+                    </a>
+
+
+
+                    <!-- COMPLETED REPORTS -->
+
+                    <a
+                        class="action"
+                        href="{% url 'appointments:completed_reports' %}"
+                    >
+                        📋 Completed Reports
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

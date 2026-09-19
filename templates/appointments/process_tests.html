@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Process Tests | MediConnect</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f8fb;
+
+            color: #123b63;
+        }
+
+
+        .container {
+            width: 92%;
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 45px 0;
+        }
+
+
+        /* =====================================
+           BACK BUTTON
+        ====================================== */
+
+        .back-button {
+            display: inline-block;
+
+            margin-bottom: 30px;
+
+            padding: 12px 20px;
+
+            background: #123b63;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+        }
+
+
+        .back-button:hover {
+            background: #008b95;
+        }
+
+
+        /* =====================================
+           HEADER
+        ====================================== */
+
+        h1 {
+            font-size: 40px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .subtitle {
+            color: #64809d;
+
+            font-size: 19px;
+
+            margin-bottom: 35px;
+        }
+
+
+        /* =====================================
+           MESSAGES
+        ====================================== */
+
+        .message {
+            padding: 16px 20px;
+
+            background: #e0f7f8;
+
+            color: #00747c;
+
+            border-radius: 12px;
+
+            margin-bottom: 25px;
+
+            font-size: 17px;
+        }
+
+
+        /* =====================================
+           SECTION
+        ====================================== */
+
+        .section {
+            margin-bottom: 45px;
+        }
+
+
+        .section-title {
+            font-size: 28px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =====================================
+           TEST CARD
+        ====================================== */
+
+        .test-card {
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(20, 70, 110, 0.08);
+        }
+
+
+        .test-name {
+            font-size: 26px;
+
+            font-weight: bold;
+
+            margin-bottom: 18px;
+        }
+
+
+        .info {
+            margin-bottom: 10px;
+
+            color: #607d9c;
+
+            font-size: 17px;
+        }
+
+
+        .info strong {
+            color: #123b63;
+        }
+
+
+        /* =====================================
+           STATUS
+        ====================================== */
+
+        .status {
+            display: inline-block;
+
+            margin-top: 8px;
+
+            padding: 8px 16px;
+
+            border-radius: 20px;
+
+            background: #dff7f8;
+
+            color: #00747c;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================
+           COMPLETE BUTTON
+        ====================================== */
+
+        .complete-button {
+            display: inline-block;
+
+            margin-top: 22px;
+
+            padding: 13px 22px;
+
+            background: #008b95;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 10px;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+
+        .complete-button:hover {
+            background: #006f77;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =====================================
+           EMPTY
+        ====================================== */
+
+        .empty {
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            text-align: center;
+
+            color: #67809c;
+
+            font-size: 20px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(20, 70, 110, 0.08);
+        }
+
+
+        /* =====================================
+           RESPONSIVE
+        ====================================== */
+
+        @media (max-width: 600px) {
+
+            h1 {
+                font-size: 30px;
+            }
+
+
+            .container {
+                width: 90%;
+            }
+
+
+            .test-card {
+                padding: 22px;
+            }
+
+
+            .section-title {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =====================================
+         BACK TO DASHBOARD
+    ====================================== -->
+
+    <a href="{% url 'dashboard' %}"
+       class="back-button">
+
+        ← Back to Dashboard
+
+    </a>
+
+
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <h1>
+
+        🔬 Process Laboratory Tests
+
+    </h1>
+
+
+    <div class="subtitle">
+
+        Manage laboratory tests that are currently being processed.
+
+    </div>
+
+
+
+    <!-- =====================================
+         DJANGO MESSAGES
+    ====================================== -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="message">
+
+                {{ message }}
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+
+    <!-- =====================================
+         PROCESSING TESTS
+    ====================================== -->
+
+    <div class="section">
+
+
+        <div class="section-title">
+
+            🔬 Tests Currently Processing
+
+        </div>
+
+
+        {% if tests %}
+
+
+            {% for test in tests %}
+
+
+                <div class="test-card">
+
+
+                    <!-- TEST NAME -->
+
+                    <div class="test-name">
+
+                        🔬 {{ test.test_name }}
+
+                    </div>
+
+
+
+                    <!-- PATIENT -->
+
+                    <div class="info">
+
+                        <strong>
+                            Patient:
+                        </strong>
+
+                        {{ test.patient.username }}
+
+                    </div>
+
+
+
+                    <!-- TEST DATE -->
+
+                    {% if test.test_date %}
+
+                        <div class="info">
+
+                            <strong>
+                                Test Date:
+                            </strong>
+
+                            {{ test.test_date }}
+
+                        </div>
+
+                    {% endif %}
+
+
+
+                    <!-- REQUESTED BY -->
+
+                    {% if test.requested_by %}
+
+                        <div class="info">
+
+                            <strong>
+                                Requested By:
+                            </strong>
+
+                            {{ test.requested_by.username }}
+
+                        </div>
+
+                    {% endif %}
+
+
+
+                    <!-- NOTES -->
+
+                    {% if test.notes %}
+
+                        <div class="info">
+
+                            <strong>
+                                Notes:
+                            </strong>
+
+                            {{ test.notes }}
+
+                        </div>
+
+                    {% endif %}
+
+
+
+                    <!-- STATUS -->
+
+                    <span class="status">
+
+                        {{ test.get_status_display }}
+
+                    </span>
+
+
+
+                    <!-- COMPLETE BUTTON -->
+
+                    <br>
+
+                    <a href="{% url 'appointments:complete_test' test.id %}"
+                       class="complete-button">
+
+                        ✅ Complete Test
+
+                    </a>
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+        {% else %}
+
+
+            <div class="empty">
+
+                🔬
+
+                <br><br>
+
+                No tests are currently being processed.
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+
+    <!-- =====================================
+         PENDING TESTS
+    ====================================== -->
+
+    <div class="section">
+
+
+        <div class="section-title">
+
+            🧪 Pending Tests
+
+        </div>
+
+
+        {% if pending_tests %}
+
+
+            {% for test in pending_tests %}
+
+
+                <div class="test-card">
+
+
+                    <div class="test-name">
+
+                        🧪 {{ test.test_name }}
+
+                    </div>
+
+
+                    <div class="info">
+
+                        <strong>
+                            Patient:
+                        </strong>
+
+                        {{ test.patient.username }}
+
+                    </div>
+
+
+                    {% if test.test_date %}
+
+                        <div class="info">
+
+                            <strong>
+                                Test Date:
+                            </strong>
+
+                            {{ test.test_date }}
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <span class="status"
+                          style="background:#fff3cd;color:#856404;">
+
+                        {{ test.get_status_display }}
+
+                    </span>
+
+
+                    <br>
+
+
+                    <a href="{% url 'appointments:start_test' test.id %}"
+                       class="complete-button">
+
+                        🔬 Start Processing
+
+                    </a>
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+        {% else %}
+
+
+            <div class="empty">
+
+                No pending tests.
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

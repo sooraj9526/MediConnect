@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Doctor Appointments | MediConnect</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f8fb;
+            color: #173b63;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            background: #0f4c75;
+            color: white;
+            padding: 25px 50px;
+        }
+
+
+        .header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+
+        .title {
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================
+           APPOINTMENT CARD
+        ========================= */
+
+        .appointment-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .appointment-card h2 {
+            margin-top: 0;
+            color: #0f4c75;
+        }
+
+
+        /* =========================
+           DETAILS
+        ========================= */
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+
+        .detail {
+            background: #f4f8fb;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+
+        .detail strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #173b63;
+        }
+
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+
+        .pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+
+        .confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+
+        .completed {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+
+        .cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+
+        /* =========================
+           UPDATE SECTION
+        ========================= */
+
+        .update-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+
+        .update-section h3 {
+            margin-top: 0;
+            color: #0f4c75;
+        }
+
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccd6df;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: Arial, sans-serif;
+        }
+
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .update-button {
+            background: #0f4c75;
+            color: white;
+            border: none;
+
+            padding: 12px 22px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            font-weight: bold;
+        }
+
+
+        .update-button:hover {
+            background: #083b5c;
+        }
+
+
+        /* =========================
+           EMPTY
+        ========================= */
+
+        .empty {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+
+        /* =========================
+           MESSAGES
+        ========================= */
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+
+        /* =========================
+           BACK BUTTON
+        ========================= */
+
+        .back-button {
+            display: inline-block;
+
+            margin-top: 25px;
+
+            padding: 12px 20px;
+
+            background: #0f4c75;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+        }
+
+
+        .back-button:hover {
+            background: #083b5c;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .details {
+                grid-template-columns: 1fr;
+            }
+
+
+            .header {
+                padding: 20px;
+            }
+
+
+            .container {
+                width: 94%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <div class="header">
+
+        <h1>
+            MediConnect - Doctor Appointments
+        </h1>
+
+    </div>
+
+
+    <!-- =========================
+         MAIN CONTAINER
+    ========================= -->
+
+    <div class="container">
+
+
+        <h2 class="title">
+            Patient Appointments
+        </h2>
+
+
+        <!-- =========================
+             MESSAGES
+        ========================= -->
+
+        {% if messages %}
+
+            <div class="messages">
+
+                {% for message in messages %}
+
+                    <div class="message
+                        {% if message.tags %}
+                            {{ message.tags }}
+                        {% endif %}
+                    ">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- =========================
+             APPOINTMENTS
+        ========================= -->
+
+        {% if appointments %}
+
+
+            {% for appointment in appointments %}
+
+
+                <div class="appointment-card">
+
+
+                    <h2>
+
+                        Patient:
+                        {{ appointment.patient.username }}
+
+                    </h2>
+
+
+                    <div class="details">
+
+
+                        <!-- DATE -->
+
+                        <div class="detail">
+
+                            <strong>
+                                Date
+                            </strong>
+
+                            {{ appointment.appointment_date }}
+
+                        </div>
+
+
+                        <!-- TIME -->
+
+                        <div class="detail">
+
+                            <strong>
+                                Time
+                            </strong>
+
+                            {{ appointment.appointment_time }}
+
+                        </div>
+
+
+                        <!-- REASON -->
+
+                        <div class="detail">
+
+                            <strong>
+                                Reason
+                            </strong>
+
+                            {{ appointment.reason }}
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        <div class="detail">
+
+                            <strong>
+                                Status
+                            </strong>
+
+                            <span class="status {{ appointment.status }}">
+
+                                {{ appointment.get_status_display }}
+
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- =========================
+                         UPDATE STATUS
+                    ========================= -->
+
+                    <div class="update-section">
+
+
+                        <h3>
+                            Update Appointment
+                        </h3>
+
+
+                        <form
+                            method="POST"
+                            action="{% url 'appointments:update_appointment_status' appointment.id %}"
+                        >
+
+                            {% csrf_token %}
+
+
+                            <!-- STATUS -->
+
+                            <div class="form-group">
+
+                                <label for="status-{{ appointment.id }}">
+                                    Appointment Status
+                                </label>
+
+
+                                <select
+                                    name="status"
+                                    id="status-{{ appointment.id }}"
+                                    required
+                                >
+
+                                    <option
+                                        value="pending"
+                                        {% if appointment.status == 'pending' %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        Pending
+                                    </option>
+
+
+                                    <option
+                                        value="confirmed"
+                                        {% if appointment.status == 'confirmed' %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        Confirmed
+                                    </option>
+
+
+                                    <option
+                                        value="completed"
+                                        {% if appointment.status == 'completed' %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        Completed
+                                    </option>
+
+
+                                    <option
+                                        value="cancelled"
+                                        {% if appointment.status == 'cancelled' %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        Cancelled
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- DOCTOR NOTES -->
+
+                            <div class="form-group">
+
+                                <label for="notes-{{ appointment.id }}">
+                                    Doctor Notes
+                                </label>
+
+
+                                <textarea
+                                    name="doctor_notes"
+                                    id="notes-{{ appointment.id }}"
+                                    placeholder="Add notes for this appointment..."
+                                >{% if appointment.doctor_notes %}{{ appointment.doctor_notes }}{% endif %}</textarea>
+
+                            </div>
+
+
+                            <!-- UPDATE BUTTON -->
+
+                            <button
+                                type="submit"
+                                class="update-button"
+                            >
+
+                                Update Appointment
+
+                            </button>
+
+
+                        </form>
+
+
+                    </div>
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+        {% else %}
+
+
+            <!-- NO APPOINTMENTS -->
+
+            <div class="empty">
+
+                <h2>
+                    No Appointments
+                </h2>
+
+                <p>
+                    You currently don't have any patient appointments.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+        <!-- =========================
+             BACK TO DASHBOARD
+        ========================= -->
+
+        <a
+            href="{% url 'dashboard' %}"
+            class="back-button"
+        >
+
+            ← Back to Dashboard
+
+        </a>
+
+
+    </div>
+
+
+</body>
+
+</html>
